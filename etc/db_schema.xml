@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * ||GEISSWEB| Credit Memo Tax
+ *
+ * @copyright   Copyright (c) 2026 GEISS Weblösungen (https://www.geissweb.de)
+ * @license     https://opensource.org/licenses/OSL-3.0 Open Software License 3.0 (OSL-3.0)
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="sales_creditmemo" resource="sales">
+        <column xsi:type="decimal" name="adjustment_positive_tax_amount" scale="4" precision="20" unsigned="false"
+                nullable="true" comment="Tax Contained In Adjustment Refund"/>
+        <column xsi:type="decimal" name="base_adjustment_positive_tax_amount" scale="4" precision="20"
+                unsigned="false" nullable="true" comment="Base Tax Contained In Adjustment Refund"/>
+        <column xsi:type="decimal" name="adjustment_negative_tax_amount" scale="4" precision="20" unsigned="false"
+                nullable="true" comment="Tax Contained In Adjustment Fee"/>
+        <column xsi:type="decimal" name="base_adjustment_negative_tax_amount" scale="4" precision="20"
+                unsigned="false" nullable="true" comment="Base Tax Contained In Adjustment Fee"/>
+    </table>
+    <table name="sales_creditmemo_adjustment_tax" resource="sales" engine="innodb"
+           comment="Tax Per Rate Contained In Credit Memo Adjustments">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true"
+                comment="Entity ID"/>
+        <column xsi:type="int" name="creditmemo_id" unsigned="true" nullable="false" identity="false"
+                comment="Credit Memo ID"/>
+        <column xsi:type="varchar" name="type" nullable="false" length="16" comment="Refund Or Fee"/>
+        <column xsi:type="varchar" name="code" nullable="true" length="255" comment="Tax Code"/>
+        <column xsi:type="varchar" name="title" nullable="true" length="255" comment="Tax Title"/>
+        <column xsi:type="decimal" name="percent" scale="4" precision="12" unsigned="false" nullable="true"
+                comment="Tax Percent"/>
+        <column xsi:type="decimal" name="amount" scale="4" precision="20" unsigned="false" nullable="false"
+                default="0" comment="Tax Amount, Negative For The Fee"/>
+        <column xsi:type="decimal" name="base_amount" scale="4" precision="20" unsigned="false" nullable="false"
+                default="0" comment="Base Tax Amount, Negative For The Fee"/>
+        <column xsi:type="decimal" name="taxable_amount" scale="4" precision="20" unsigned="false" nullable="false"
+                default="0" comment="Taxable Amount, Negative For The Fee"/>
+        <column xsi:type="decimal" name="base_taxable_amount" scale="4" precision="20" unsigned="false"
+                nullable="false" default="0" comment="Base Taxable Amount, Negative For The Fee"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="SALES_CREDITMEMO_ADJUSTMENT_TAX_CREDITMEMO_ID_SALES_CREDITMEMO_ENTITY_ID"
+                    table="sales_creditmemo_adjustment_tax" column="creditmemo_id"
+                    referenceTable="sales_creditmemo" referenceColumn="entity_id" onDelete="CASCADE"/>
+        <index referenceId="SALES_CREDITMEMO_ADJUSTMENT_TAX_CREDITMEMO_ID" indexType="btree">
+            <column name="creditmemo_id"/>
+        </index>
+    </table>
+</schema>

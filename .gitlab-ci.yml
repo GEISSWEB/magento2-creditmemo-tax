@@ -1,0 +1,167 @@
+# GitLab CI/CD Pipeline for Geissweb_CreditmemoTax
+# Tests against multiple PHP and Magento 2 versions
+#
+# Job-Definitionen kommen aus geissweb/ci-templates. Hier stehen nur die
+# Versionskombinationen, die dieses Modul abdeckt.
+#
+# Required CI/CD Variables (Settings > CI/CD > Variables, von der Gruppe geerbt):
+#   COMPOSER_AUTH_USERNAME - Magento Marketplace public key
+#   COMPOSER_AUTH_PASSWORD - Magento Marketplace private key
+#
+# Compatibility Matrix:
+#   Magento 2.4.6: PHP 8.1, 8.2 (latest patch)
+#   Magento 2.4.7: PHP 8.2, 8.3
+#   Magento 2.4.8: PHP 8.3, 8.4
+#   Magento 2.4.9: PHP 8.3, 8.4
+
+include:
+  - component: gitlab.geissweb.com/geissweb/ci-templates/magento-module@1.4.0
+    inputs:
+      module_package: geissweb/module-creditmemo-tax
+      module_name: Geissweb_CreditmemoTax
+      ci_test_project: geissweb/creditmemo-tax-ci-test
+      minimum_stability: stable
+      create_project_stability: ""
+
+stages:
+  - lint
+  - test
+  - integration
+  - deploy
+
+variables:
+  COMPOSER_HOME: "$CI_PROJECT_DIR/.composer"
+  COMPOSER_ALLOW_SUPERUSER: "1"
+  COMPOSER_NO_INTERACTION: "1"
+  COMPOSER_MEMORY_LIMIT: "-1"
+  COMPOSER_PROCESS_TIMEOUT: "600"
+  COMPOSER_HTTP_TIMEOUT: "300"
+
+default:
+  interruptible: true
+
+# ============================================================
+# Unit Tests
+# ============================================================
+
+test:php81-magento246:
+  extends: .gw_unit_test
+  image: stayallive/php:8.1
+  variables:
+    PHP_VERSION: "8.1"
+    MAGENTO_VERSION: "2.4.6-p15"
+    PHPUNIT_VERSION: "^10.0"
+
+test:php82-magento246:
+  extends: .gw_unit_test
+  image: stayallive/php:8.2
+  variables:
+    PHP_VERSION: "8.2"
+    MAGENTO_VERSION: "2.4.6-p15"
+    PHPUNIT_VERSION: "^10.0"
+
+test:php82-magento247:
+  extends: .gw_unit_test
+  image: stayallive/php:8.2
+  variables:
+    PHP_VERSION: "8.2"
+    MAGENTO_VERSION: "2.4.7"
+    PHPUNIT_VERSION: "^10.0"
+
+test:php83-magento247:
+  extends: .gw_unit_test
+  image: stayallive/php:8.3
+  variables:
+    PHP_VERSION: "8.3"
+    MAGENTO_VERSION: "2.4.7"
+    PHPUNIT_VERSION: "^10.0"
+
+test:php83-magento248:
+  extends: .gw_unit_test
+  image: stayallive/php:8.3
+  variables:
+    PHP_VERSION: "8.3"
+    MAGENTO_VERSION: "2.4.8"
+    PHPUNIT_VERSION: "^10.0"
+
+test:php84-magento248:
+  extends: .gw_unit_test
+  image: stayallive/php:8.4
+  variables:
+    PHP_VERSION: "8.4"
+    MAGENTO_VERSION: "2.4.8"
+    PHPUNIT_VERSION: "^10.0"
+
+test:php83-magento249:
+  extends: .gw_unit_test
+  image: stayallive/php:8.3
+  variables:
+    PHP_VERSION: "8.3"
+    MAGENTO_VERSION: "2.4.9"
+    PHPUNIT_VERSION: "^10.0"
+
+test:php84-magento249:
+  extends: .gw_unit_test
+  image: stayallive/php:8.4
+  variables:
+    PHP_VERSION: "8.4"
+    MAGENTO_VERSION: "2.4.9"
+    PHPUNIT_VERSION: "^10.0"
+
+# ============================================================
+# Integration Tests
+# ============================================================
+
+integration:php82-magento246:
+  extends: .gw_integration_test
+  image: stayallive/php:8.2
+  variables:
+    PHP_VERSION: "8.2"
+    MAGENTO_VERSION: "2.4.6-p15"
+    MARIADB_VERSION: "10.6"
+
+integration:php82-magento247:
+  extends: .gw_integration_test
+  image: stayallive/php:8.2
+  variables:
+    PHP_VERSION: "8.2"
+    MAGENTO_VERSION: "2.4.7"
+    MARIADB_VERSION: "10.6"
+
+integration:php83-magento248:
+  extends: .gw_integration_test
+  image: stayallive/php:8.3
+  variables:
+    PHP_VERSION: "8.3"
+    MAGENTO_VERSION: "2.4.8"
+    MARIADB_VERSION: "11.4"
+
+integration:php84-magento249:
+  extends: .gw_integration_test
+  image: stayallive/php:8.4
+  variables:
+    PHP_VERSION: "8.4"
+    MAGENTO_VERSION: "2.4.9"
+    MARIADB_VERSION: "11.4"
+    OPENSEARCH_VERSION: "3.0.0"
+
+# ============================================================
+# Deploy Tests
+# ============================================================
+
+deploy:php81-magento246:
+  extends: .gw_deploy_test
+  image: stayallive/php:8.1
+  variables:
+    PHP_VERSION: "8.1"
+    MAGENTO_VERSION: "2.4.6-p15"
+    MARIADB_VERSION: "10.6"
+
+deploy:php84-magento249:
+  extends: .gw_deploy_test
+  image: stayallive/php:8.4
+  variables:
+    PHP_VERSION: "8.4"
+    MAGENTO_VERSION: "2.4.9"
+    MARIADB_VERSION: "11.4"
+    OPENSEARCH_VERSION: "3.0.0"

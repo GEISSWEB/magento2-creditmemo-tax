@@ -1,0 +1,11 @@
+# Run from the Magento root:
+#   vendor/bin/phpstan analyse -c vendor/geissweb/module-creditmemo-tax/phpstan.neon
+#
+# The integration test framework is not part of the Composer autoloader.
+parameters:
+    level: 8
+    treatPhpDocTypesAsCertain: false
+    paths:
+        - .
+    scanDirectories:
+        - %currentWorkingDirectory%/dev/tests/integration/framework

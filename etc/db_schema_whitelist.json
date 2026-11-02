@@ -1,0 +1,31 @@
+{
+    "sales_creditmemo": {
+        "column": {
+            "adjustment_positive_tax_amount": true,
+            "base_adjustment_positive_tax_amount": true,
+            "adjustment_negative_tax_amount": true,
+            "base_adjustment_negative_tax_amount": true
+        }
+    },
+    "sales_creditmemo_adjustment_tax": {
+        "column": {
+            "entity_id": true,
+            "creditmemo_id": true,
+            "code": true,
+            "title": true,
+            "percent": true,
+            "amount": true,
+            "base_amount": true,
+            "taxable_amount": true,
+            "base_taxable_amount": true,
+            "type": true
+        },
+        "index": {
+            "SALES_CREDITMEMO_ADJUSTMENT_TAX_CREDITMEMO_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "FK_A1B86CA58CDC9F089A4BA3839B00995F": true
+        }
+    }
+}

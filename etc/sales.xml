@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * ||GEISSWEB| Credit Memo Tax
+ *
+ * @copyright   Copyright (c) 2026 GEISS Weblösungen (https://www.geissweb.de)
+ * @license     https://opensource.org/licenses/OSL-3.0 Open Software License 3.0 (OSL-3.0)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Sales:etc/sales.xsd">
+    <section name="order_creditmemo">
+        <group name="totals">
+            <item name="adjustment_tax" instance="Geissweb\CreditmemoTax\Model\Creditmemo\Total\AdjustmentTax"
+                  sort_order="350"/>
+        </group>
+    </section>
+</config>

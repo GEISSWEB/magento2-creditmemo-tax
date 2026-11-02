@@ -1,0 +1,10 @@
+# Aus Dist-Paketen ausschliessen: Dateien, die weder zur Laufzeit noch beim
+# Testen gebraucht werden. Wirkt ueber git archive.
+#
+# Tests werden bewusst mit ausgeliefert und stehen deshalb nicht hier. Ein
+# export-ignore auf Test/ haette ausserdem die CI getroffen: Composer kopiert
+# Path-Repositories mit symlink:false ueber git archive, sodass die Unit-Jobs
+# ihre Testsuite verloeren.
+/.gitattributes    export-ignore
+/.gitlab-ci.yml    export-ignore
+/phpstan.neon      export-ignore

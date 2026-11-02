@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * ||GEISSWEB| Credit Memo Tax
+ *
+ * @copyright   Copyright (c) 2026 GEISS Weblösungen (https://www.geissweb.de)
+ * @license     https://opensource.org/licenses/AFL-3.0 Academic Free License 3.0 (AFL-3.0)
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="creditmemo_totals">
+            <block class="Geissweb\CreditmemoTax\Block\Sales\Creditmemo\AdjustmentTotals"
+                   name="creditmemo_adjustment_tax_totals" after="tax"/>
+        </referenceBlock>
+    </body>
+</page>
