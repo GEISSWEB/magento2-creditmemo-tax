@@ -1,6 +1,6 @@
 {
   "name": "geissweb/module-creditmemo-tax",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Calculates the tax on credit memo adjustments (Adjustment Refund, Adjustment Fee) proportionally from the stored order and invoice tax data",
   "type": "magento2-module",
   "license": [

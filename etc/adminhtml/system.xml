@@ -17,7 +17,7 @@
                 <field id="calculate_tax" translate="label comment" type="select" sortOrder="10" showInDefault="1"
                        showInWebsite="1" canRestore="1">
                     <label>Calculate Tax on Adjustments</label>
-                    <comment>Adjustment Refund and Adjustment Fee are amounts including tax. The tax they contain is split by the tax rates of the items and shipping refunded with the credit memo, otherwise of the items and shipping not refunded yet. Applies to credit memos created from now on.</comment>
+                    <comment>Adjustment Refund and Adjustment Fee are amounts including tax. The tax they contain is split by the tax rates of the items and shipping refunded with the credit memo. If the credit memo refunds none, the items and shipping not refunded yet count. If all are refunded, the invoiced items and shipping count. Applies to credit memos created from now on.</comment>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
             </group>

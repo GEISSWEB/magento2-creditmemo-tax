@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.1
+
+- Fixed sort order 100 for the three plugins.
+- The comment of the setting *Calculate Tax on Adjustments* names all three bases, including the invoiced items and
+  shipping.
+
 ## 0.1.0
 
 - Tax contained in Adjustment Refund and Adjustment Fee of credit memos, split by the tax rates of the refunded
